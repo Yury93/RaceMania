@@ -6,20 +6,21 @@ using UnityEngine;
 [Serializable]
 public class WheelAxle 
 {
-    [SerializeField]public WheelCollider LeftWheelCollider;
-    [SerializeField] public WheelCollider RightWheelCollider;
-    [SerializeField] public Transform LeftWheelTransform;
-    [SerializeField] public Transform RightWheelTransform;
-    [SerializeField] public bool IsSteer;
-    [SerializeField] public bool IsMotor;
-    [SerializeField] public float AntiRollForce;
-    [SerializeField] public float motorTorque;
-    [SerializeField] public float widthWheelAxle;
-    [SerializeField] public float baseForwardStiffness = 1.5f, stabilityForwardFactor = 1.0f;
-    [SerializeField] public float baseSideStiffness = 2f, stabilitySideFactor = 1.0f;
-    [SerializeField] public float additionalWheelDownForce;
+    [SerializeField]private  WheelCollider LeftWheelCollider;
+    [SerializeField] private WheelCollider RightWheelCollider;
+    [SerializeField] private Transform LeftWheelTransform;
+    [SerializeField] private Transform RightWheelTransform;
+    [SerializeField] private bool isSteer;
+    [SerializeField] private bool isMotor;
+    [SerializeField] private float AntiRollForce;
+    [SerializeField] private float motorTorque;
+    [SerializeField] private float widthWheelAxle;
+    [SerializeField] private float baseForwardStiffness = 1.5f, stabilityForwardFactor = 1.0f;
+    [SerializeField] private float baseSideStiffness = 2f, stabilitySideFactor = 1.0f;
+    [SerializeField] private float additionalWheelDownForce;
     WheelHit leftGroundHit,rightGroundHit;
-
+    public bool IsMotor => isMotor;
+    public bool IsSteer => isSteer;
     public void Update()
     {
         UpdateGroundHit();

@@ -6,8 +6,16 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
     private CarChassis carChassis;
-    [SerializeField] private float maxMotorTorque,  maxBreakTorque, maxSteerAngle;
+    [SerializeField] private float maxBreakTorque, maxSteerAngle;
+   
+    [SerializeField] private AnimationCurve animationEngineCurve;
+    [SerializeField] private float maxMotorTorque;
+    [SerializeField] private float maxSpeed;
+
+    [Header("Dynamically value")]
     [SerializeField] private float motorTorqueControll, breakControl, steerControll;
+
+    public float LinearVelocity => carChassis.LeanerVelocity;
 
     private void Start()
     {
@@ -27,9 +35,16 @@ public class Car : MonoBehaviour
         this.steerControll = steerAngle;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        carChassis.MotorTorque = motorTorqueControll * maxMotorTorque;
+        float engineTorque = animationEngineCurve.Evaluate(LinearVelocity / maxSpeed) * maxMotorTorque;
+
+        if (LinearVelocity >= maxSpeed) 
+        {
+            engineTorque = 0; 
+        }
+
+        carChassis.MotorTorque = engineTorque * motorTorqueControll;
         carChassis.BreakTorque = breakControl* maxBreakTorque;
         carChassis.SteerAngle = steerControll * maxSteerAngle;
     }
