@@ -18,7 +18,7 @@ public class CarChassis : MonoBehaviour
     public float BreakTorque;
     private new Rigidbody rigidbody;
     public float LeanerVelocity => rigidbody.velocity.magnitude * 3.6f; // умножаю на 3.6 чтобы перевести м/с в км/ч
-
+    public float WheelSpeed => GetWheelSpeed();
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -34,6 +34,23 @@ public class CarChassis : MonoBehaviour
         UpdateDownForce();
         UpdateWheelAxles();
     }
+
+
+    private float GetAvarageRpm()
+    {
+        float sum = 0;
+        for (int i = 0; i < wheelAxles.Length; i++)
+        {
+            sum += wheelAxles[i].GetAvarageRpm();
+        }
+        return sum / wheelAxles.Length;
+    }
+    public float GetWheelSpeed()
+    {
+        return GetAvarageRpm() * wheelAxles[0].GetRadius() * 2 * 0.1885f;
+    }
+
+
 
     private void UpdateAngularDrag()
     {

@@ -32,6 +32,15 @@ public class WheelAxle
         SyncMeshTransform();
     }
 
+
+    public float GetAvarageRpm()
+    {
+        return (LeftWheelCollider.rpm + RightWheelCollider.rpm) * 0.5f;
+    }
+    public float GetRadius()
+    {
+        return LeftWheelCollider.radius;
+    }
     /// <summary>
     /// Жесткость
     /// </summary>
@@ -115,7 +124,6 @@ public class WheelAxle
 
         var radius = Mathf.Abs(wheelBaseLenght * Mathf.Tan(Mathf.Deg2Rad * ( 90f - Mathf.Abs(steerAngle))));
         var angleSing = Mathf.Sign(steerAngle);
-        Debug.Log(angleSing + " // -1 0 1");
         if(steerAngle > 0)
         {
             LeftWheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBaseLenght/( radius+ (widthWheelAxle * 0.5f))) * angleSing ;
